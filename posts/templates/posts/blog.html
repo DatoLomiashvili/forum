@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Blog
+{% endblock %}
+
+{% block navbar %}
+    <h1>Create A Blog</h1>
+{% endblock navbar %}
+
+{% block content %}
+    <div class="form-group">
+        <form action="{% url 'blog' %}" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Register</button>
+        </form>
+    </div>
+{% endblock content %}

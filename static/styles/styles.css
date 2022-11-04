@@ -1,0 +1,130 @@
+:root{
+    --dark: #4e4f4e;
+    --darker: #3e3e3e;
+    --grey: #686968;
+    --lighter: #c7c7c7;
+    --light: #adaaaa;
+    --cyan: #4795bf;
+    --dangerous-red: #db2a44;
+    --sun: #ebb734;
+}
+
+h1 {
+    color: var(--lighter);
+}
+
+hr {
+    height: 1px;
+    background-color: var(--grey);
+}
+
+
+p {
+    margin: 5rem;
+    max-width: 60%;
+    background: var(--dark);
+    color: var(--lighter);
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.post {
+    max-width: 40vw;
+    margin: 0 auto;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.nav h1 {
+    margin: 1rem;
+    font-size: 3rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 1rem;
+}
+
+.flex a {
+    margin: 2rem;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin: 1rem;
+}
+
+.messages,.post {
+    margin: 2rem;
+    background-color: var(--lighter);
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.messages {
+    max-width: 40vw;
+}
+
+.content {
+    margin: 3rem;
+}
+
+.post {
+    margin: 2rem;
+}
+
+.nav-link {
+    font-size: 3rem;
+}
+
+
+.username {
+    background-color: var(--light);
+    color: var(--darker);
+    border-radius: 15px;
+    padding: 2px;
+}
+
+label[for=id_message]
+{
+    color: var(--lighter);
+}
+
+label[for=id_username]
+{
+    color: var(--lighter);
+}
+
+label[for=id_password1]
+{
+    color: var(--lighter);
+}
+
+label[for=id_password2]
+{
+    color: var(--lighter);
+}
+
+label[for=username]
+{
+    color: var(--lighter);
+}
+
+label[for=password]
+{
+    color: var(--lighter);
+}
+
+label[for=id_headline]
+{
+    color: var(--lighter);
+}
+
+label[for=id_body]
+{
+    color: var(--lighter);
+}
