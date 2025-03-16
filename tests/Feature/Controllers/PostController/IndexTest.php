@@ -15,7 +15,6 @@ it('should return the correct component', function () {
 
 
 it('passes posts to the view', function () {
-
     $posts = PostFactory::new()->count(3)->create();
 
     get(route('posts.index'))
