@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Testing\TestResponse;
+use Inertia\Inertia;
 use Inertia\Testing\AssertableInertia;
 
 class TestingServiceProvider extends ServiceProvider
@@ -49,6 +50,11 @@ class TestingServiceProvider extends ServiceProvider
         TestResponse::macro('assertHasPaginatedResource', function (string $key, ResourceCollection $collection) {
             /** @var TestResponse $this */
             return $this->assertInertia(fn (AssertableInertia $inertia) => $inertia->hasPaginatedResource($key, $collection));
+        });
+
+        TestResponse::macro('assertComponent', function (string $component) {
+            /** @var TestResponse $this */
+            return $this->assertInertia(fn (AssertableInertia $inertia) => $inertia->component($component));
         });
     }
 }
