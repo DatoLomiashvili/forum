@@ -30,7 +30,7 @@ const formattedDate = relativeDate(props.post.created_at)
                         <Comment :comment="comment" />
                     </li>
                 </ul>
-                <Pagination :meta="comments.meta" />
+                <Pagination :meta="comments.meta" :only="['comments']" />
             </div>
         </Container>
     </AppLayout>
