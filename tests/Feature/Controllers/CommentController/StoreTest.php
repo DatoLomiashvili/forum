@@ -6,7 +6,6 @@ use App\Models\User;
 use function Pest\Laravel\actingAs;
 
 it('can store a comment', function () {
-    \Pest\Laravel\withoutExceptionHandling();
     $user = User::factory()->create();
     $post = Post::factory()->create();
 
