@@ -10,6 +10,7 @@ it('requires authentication', function () {
     post(route('posts.comments.store', Post::factory()->create()))
     ->assertRedirect(route('login'));
 });
+
 it('can store a comment', function () {
     $user = User::factory()->create();
     $post = Post::factory()->create();
