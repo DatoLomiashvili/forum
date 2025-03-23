@@ -24,14 +24,9 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::prefix('posts')->name('posts.')->group(function () {
-        Route::post('/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
-    });
-
-    Route::prefix('comments')->name('comments.')->group(function () {
-        Route::delete('/{comment}', [CommentController::class, 'destroy'])->name('destroy');
-    });
-
+    Route::resource('posts.comments', CommentController::class)
+        ->shallow()
+        ->only(['store', 'update', 'destroy']);
 });
 
 Route::prefix('posts')->name('posts.')->group(function () {

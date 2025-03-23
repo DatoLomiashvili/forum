@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Comment\StoreCommentRequest;
+use App\Http\Requests\Comment\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use Gate;
@@ -10,20 +11,9 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        Gate::resource('comment', Comment::class);
     }
 
     /**
@@ -31,6 +21,8 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request, Post $post)
     {
+        Gate::authorize('create', Comment::class);
+
         Comment::create([
             ...$request->validated(),
             'post_id' => $post->id,
@@ -41,27 +33,17 @@ class CommentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        Gate::authorize('update', $comment);
+
+        $comment->update([
+            'body' => $request->validated('body'),
+        ]);
+
+        return to_route('posts.show', ['post' => $comment->post_id, 'page' => $request->query('page')]);
     }
 
     /**
