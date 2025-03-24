@@ -7,8 +7,8 @@ use function Pest\Laravel\post;
 
 beforeEach(function () {
    $this->validData = [
-       'title' => fake()->words(3, true),
-       'body' => fake()->text(10000)
+       'title' => fake()->words(5, true),
+       'body' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad atque aut, eos eum facere inventore mollitia nisi possimus tempore? A asperiores cum debitis dolor dolores esse id iure libero magni mollitia officia quam, quas, quis quod reprehenderit repudiandae saepe ullam voluptatibus. Aperiam dolores iure modi nisi vero. Corporis, perspiciatis, quam.'
    ];
 });
 
