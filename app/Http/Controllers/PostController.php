@@ -6,6 +6,7 @@ use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use Gate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,6 +18,7 @@ class PostController extends Controller
      */
     public function index(): Response
     {
+        Gate::authorize('viewAny', Post::class);
         $posts = Post::query()
             ->with('user')
             ->latest()
@@ -33,6 +35,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Post::class);
         return Inertia::render('Posts/Create');
     }
 
@@ -41,6 +44,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        Gate::authorize('create', Post::class);
         $post = Post::create([
            'title' => $request->validated('title'),
            'body' => $request->validated('body'),
@@ -55,6 +59,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        Gate::authorize('view', $post);
+        
         $post->load('user');
 
         $comments = $post->comments()
