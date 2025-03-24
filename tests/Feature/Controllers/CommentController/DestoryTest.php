@@ -9,6 +9,7 @@ use function Pest\Laravel\delete;
 it('requires authentication', function () {
     delete(route('comments.destroy', Comment::factory()->create()))
         ->assertRedirect(route('login'));
+
 });
 
 it('can delete a comment', function () {
@@ -25,7 +26,7 @@ it('redirects to the post show page with the page query parameter', function () 
 
     actingAs($comment->user)
         ->delete(route('comments.destroy', ['comment' => $comment, 'page' => 2]))
-        ->assertRedirect(route('posts.show', ['post' => $comment->post, 'page' => 2]));
+        ->assertRedirect($comment->post->showRoute(['page' => 2]));
 });
 
 it('prevents deleting a comment you didnt create', function () {

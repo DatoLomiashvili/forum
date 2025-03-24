@@ -10,6 +10,7 @@ use Gate;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Str;
 
 class PostController extends Controller
 {
@@ -51,16 +52,20 @@ class PostController extends Controller
            'user_id' => $request->user()->id,
         ]);
 
-        return to_route('posts.show', $post);
+        return redirect($post->showRoute());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Request $request, Post $post)
     {
         Gate::authorize('view', $post);
-        
+
+        if (! Str::is($post->showRoute(), config('app.url') . '/' . $request->path())){
+            return redirect($post->showRoute($request->query()), 301);
+        }
+
         $post->load('user');
 
         $comments = $post->comments()
