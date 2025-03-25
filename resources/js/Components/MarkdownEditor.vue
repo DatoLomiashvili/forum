@@ -6,9 +6,12 @@ import {watch} from "vue";
 import {Markdown} from "tiptap-markdown";
 import 'remixicon/fonts/remixicon.css';
 import {Link} from "@tiptap/extension-link";
+import {Placeholder} from "@tiptap/extension-placeholder";
 
 const props = defineProps({
     modelValue: '',
+    editorClass: '',
+    placeholder: null
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -20,17 +23,23 @@ const editor = useEditor({
                 levels: [2, 3, 4]
             },
             code: false,
+            codeBlock: false
         }),
         Link,
         Markdown,
+        Placeholder.configure({
+            placeholder: props.placeholder
+        }),
     ],
     editorProps: {
         attributes: {
-            class: 'min-h-[512px] prose prose-sm max-w-none py-1.5 px-3',
+            class: `min-h-[512px] prose prose-sm max-w-none py-1.5 px-3 ${props.editorClass}`,
         },
     },
     onUpdate: () => emit('update:modelValue', editor.value?.storage.markdown.getMarkdown())
 })
+
+defineExpose({focus: () => editor.value.commands.focus()})
 
 watch(() => props.modelValue, (value) => {
     if (value === editor.value?.storage.markdown.getMarkdown()){
@@ -149,3 +158,10 @@ const promptUserForHref = () => {
         <EditorContent :editor="editor"/>
     </div>
 </template>
+
+<style scoped>
+:deep(.tiptap p.is-editor-empty:first-child::before) {
+    @apply text-gray-400 float-left h-0 pointer-events-none;
+    content: attr(data-placeholder);
+}
+</style>
