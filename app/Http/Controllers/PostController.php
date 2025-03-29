@@ -21,7 +21,7 @@ class PostController extends Controller
     {
         Gate::authorize('viewAny', Post::class);
         $posts = Post::query()
-            ->with('user')
+            ->with(['user', 'topic'])
             ->latest()
             ->latest('id')
             ->paginate(15);
